@@ -32,21 +32,18 @@
           </div>
         </article>
 
-        <article class="card make-card make-card--muted">
-          <div class="card__body">
-            <p class="card__title">Host a<strong>Cultural Event</strong></p>
-          </div>
-          <div class="make-card__img">
-            <img src="assets/img/make-cultural.jpg" alt="Evento culturale serale in un vicolo di Apice">
-          </div>
-        </article>
+        <div class="make-bar">Host a <strong>Cultural Event</strong></div>
+        <div class="make-bar">Open a <strong>Temporary Shop</strong></div>
       </div>
 
       <div class="make-or">Or</div>
 
       <div class="make-col">
         <form class="card make-form" data-fake-submit>
-          <textarea name="initiative" placeholder="Write your initiative to us…" required></textarea>
+          <div class="make-form__field">
+            <span class="fake-caret" aria-hidden="true"></span>
+            <textarea name="initiative" placeholder="Write your initiative to us…" required></textarea>
+          </div>
           <div class="form-note" aria-live="polite"></div>
           <div class="make-form__footer">
             <button class="btn" type="submit">Send</button>
