@@ -61,7 +61,7 @@ function initFakeForms() {
   });
 }
 
-// Belong page: zoomable, clickable Memory Atlas map
+// Belong page: pannable, zoomable, clickable Memory Atlas map
 function initAtlasMap() {
   const map = document.getElementById('atlasMap');
   const viewport = document.getElementById('atlasViewport');
@@ -69,10 +69,41 @@ function initAtlasMap() {
   if (!map || !viewport || !layer) return;
 
   const MIN_SCALE = 1;
-  const MAX_SCALE = 2.5;
-  const STEP = 0.3;
+  const MAX_SCALE = 3;
+  const BTN_STEP = 0.3;
+  const WHEEL_STEP = 0.18;
+
   let scale = 1;
+  let tx = 0;
+  let ty = 0;
   let activePopup = null;
+
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+  function clampPan() {
+    const w = viewport.clientWidth;
+    const h = viewport.clientHeight;
+    tx = clamp(tx, w * (1 - scale), 0);
+    ty = clamp(ty, h * (1 - scale), 0);
+  }
+
+  function applyTransform(smooth) {
+    layer.style.transition = smooth ? 'transform 0.2s ease' : 'none';
+    layer.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  }
+
+  // Zoom while keeping the point under (anchorX, anchorY) — viewport-local px — fixed on screen
+  function zoomTo(newScale, anchorX, anchorY, smooth) {
+    const clamped = clamp(newScale, MIN_SCALE, MAX_SCALE);
+    if (clamped === scale) return;
+    const lx = (anchorX - tx) / scale;
+    const ly = (anchorY - ty) / scale;
+    scale = clamped;
+    tx = anchorX - lx * scale;
+    ty = anchorY - ly * scale;
+    clampPan();
+    applyTransform(smooth);
+  }
 
   function closePopup() {
     if (activePopup) {
@@ -124,17 +155,70 @@ function initAtlasMap() {
     input.focus();
   }
 
+  // Zoom buttons: anchor at viewport center
   map.querySelectorAll('.atlas-zoom__btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       closePopup();
-      scale = btn.dataset.zoom === 'in'
-        ? Math.min(MAX_SCALE, +(scale + STEP).toFixed(2))
-        : Math.max(MIN_SCALE, +(scale - STEP).toFixed(2));
-      layer.style.transform = `scale(${scale})`;
+      const dir = btn.dataset.zoom === 'in' ? 1 : -1;
+      zoomTo(scale + dir * BTN_STEP, viewport.clientWidth / 2, viewport.clientHeight / 2, true);
     });
   });
 
+  // Mouse wheel: zoom anchored under the cursor
+  viewport.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    closePopup();
+    const rect = viewport.getBoundingClientRect();
+    const dir = e.deltaY < 0 ? 1 : -1;
+    zoomTo(scale + dir * WHEEL_STEP, e.clientX - rect.left, e.clientY - rect.top, false);
+  }, { passive: false });
+
+  // Drag to pan
+  let dragging = false;
+  let dragMoved = false;
+  let startX = 0;
+  let startY = 0;
+  let startTx = 0;
+  let startTy = 0;
+
+  viewport.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 || e.target.closest('.atlas-popup')) return;
+    dragging = true;
+    dragMoved = false;
+    startX = e.clientX;
+    startY = e.clientY;
+    startTx = tx;
+    startTy = ty;
+    viewport.setPointerCapture(e.pointerId);
+    viewport.classList.add('is-grabbing');
+  });
+
+  viewport.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) dragMoved = true;
+    if (!dragMoved) return;
+    tx = startTx + dx;
+    ty = startTy + dy;
+    clampPan();
+    applyTransform(false);
+  });
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    viewport.classList.remove('is-grabbing');
+  }
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+
+  // Click (not a drag) drops a pin and opens the share popup
   viewport.addEventListener('click', (e) => {
+    if (dragMoved) {
+      dragMoved = false;
+      return;
+    }
     const layerRect = layer.getBoundingClientRect();
     const mapRect = map.getBoundingClientRect();
     const xPercent = ((e.clientX - layerRect.left) / layerRect.width) * 100;
