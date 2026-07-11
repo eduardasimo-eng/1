@@ -99,11 +99,6 @@ a {
   height: 16px;
 }
 
-.back-pill .icon.dot {
-  background: var(--white);
-  border-color: var(--white);
-}
-
 .page-subtitle {
   font-size: 1.05rem;
   font-weight: 300;
@@ -268,102 +263,125 @@ main {
 
 /* ================= DISCOVER ================= */
 
-.discover-track {
+.accordion {
   display: flex;
-  gap: 28px;
-  padding: 20px 48px 40px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  max-width: var(--container);
-  margin: 0 auto;
-}
-
-.discover-track::-webkit-scrollbar {
-  height: 8px;
-}
-.discover-track::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 8px;
-}
-
-.discover-card {
-  scroll-snap-align: center;
-  flex: 0 0 auto;
-  width: min(560px, 78vw);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   align-items: stretch;
+  gap: 10px;
+  height: 440px;
+  max-width: var(--container);
+  margin: 56px auto 0;
+  padding: 0 48px;
+}
+
+.accordion-item {
+  flex: 0 0 260px;
   border-radius: var(--radius-md);
-  background: var(--green-light);
-  color: var(--green-deep);
-  transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-}
-
-.discover-card__text {
-  padding: 36px 30px;
-  display: flex;
-  align-items: flex-start;
-}
-
-.discover-card__text p {
-  font-size: 1.3rem;
-  line-height: 1.4;
-  font-weight: 300;
-  margin: 0;
-}
-
-.discover-card__text strong {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  margin-top: 6px;
-}
-
-.discover-card__img {
-  position: relative;
   overflow: hidden;
+  background: var(--green-light);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transition: flex 0.45s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.discover-card__img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(1) opacity(0.55);
-  transition: filter 0.35s ease;
-}
-
-.discover-card.is-active {
+.accordion-item.is-open {
+  flex: 1 1 0%;
   background: var(--white);
-  color: var(--ink);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.28);
 }
 
-.discover-card.is-active .discover-card__img img {
-  filter: grayscale(1) opacity(1);
-}
-
-.discover-dots {
+.accordion-item__toggle {
+  all: unset;
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.discover-dots button {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.4);
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
-  padding: 0;
 }
 
-.discover-dots button.is-active {
-  background: var(--white);
-  width: 26px;
-  border-radius: 6px;
+.accordion-item.is-open .accordion-item__toggle {
+  cursor: default;
+}
+
+.accordion-item__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.35;
+  color: var(--green-deep);
+  margin: 0;
+  flex-shrink: 0;
+  padding: 32px 28px 0;
+}
+
+.accordion-item__title strong {
+  display: block;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-top: 2px;
+  color: var(--green-deep);
+}
+
+.accordion-item.is-open .accordion-item__title,
+.accordion-item.is-open .accordion-item__title strong {
+  color: var(--ink);
+}
+
+.accordion-item__body {
+  display: none;
+  flex: 1;
+  min-height: 0;
+}
+
+.accordion-item.is-open .accordion-item__body {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  margin-top: 20px;
+}
+
+.accordion-item__text {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0 28px 32px;
+}
+
+.accordion-item__text p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+  margin: 0 0 14px;
+}
+
+.accordion-item__img {
+  position: relative;
+  min-width: 0;
+}
+
+.accordion-item__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .accordion {
+    flex-direction: column;
+    height: auto;
+  }
+  .accordion-item {
+    flex: 0 0 auto;
+  }
+  .accordion-item .accordion-item__toggle {
+    height: auto;
+    padding: 22px 24px;
+  }
+  .accordion-item.is-open .accordion-item__body {
+    grid-template-columns: 1fr;
+  }
+  .accordion-item.is-open .accordion-item__img {
+    min-height: 220px;
+  }
 }
 
 /* ================= LEARN ================= */

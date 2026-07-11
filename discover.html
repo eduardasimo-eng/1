@@ -10,43 +10,63 @@
 
   <div class="topbar">
     <a class="back-pill" href="index.html">
-      <span class="icon dot"></span>
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7"/><path d="M7 13V7h6"/></svg>
+      </span>
       Discover
     </a>
+    <p class="page-subtitle">Explore a reconnected landscape of heritage, paths and everyday encounters.</p>
   </div>
 
   <main>
-    <div class="discover-track">
+    <div class="accordion">
 
-      <article class="discover-card">
-        <div class="discover-card__text">
-          <p>Explore the<strong>Landscape Trail</strong></p>
-        </div>
-        <div class="discover-card__img">
-          <img src="assets/img/discover-ruin.jpg" alt="">
-        </div>
+      <article class="accordion-item is-open">
+        <button class="accordion-item__toggle" type="button" aria-expanded="true">
+          <p class="accordion-item__title">Dive into the history in<strong>Open-Air Ruin Museum</strong></p>
+          <div class="accordion-item__body">
+            <div class="accordion-item__text">
+              <p>Walk through the open-air ruin museum and discover the traces of former houses, streets and public spaces of Apice Vecchia.</p>
+              <p>The route reveals the memory of the old town while allowing visitors to experience it as part of a renewed cultural landscape.</p>
+            </div>
+            <div class="accordion-item__img">
+              <img src="assets/img/discover-ruin.jpg" alt="Rovina storica di Apice Vecchia trasformata in museo a cielo aperto">
+            </div>
+          </div>
+        </button>
       </article>
 
-      <article class="discover-card is-active">
-        <div class="discover-card__text">
-          <p>Dive into the history in<strong>Open-Air Ruin Museum</strong></p>
-        </div>
-        <div class="discover-card__img">
-          <img src="assets/img/discover-ruin.jpg" alt="Rovina storica di Apice Vecchia trasformata in museo a cielo aperto">
-        </div>
+      <article class="accordion-item">
+        <button class="accordion-item__toggle" type="button" aria-expanded="false">
+          <p class="accordion-item__title">Stay for a weekend in<strong>Albergo Diffuso</strong></p>
+          <div class="accordion-item__body">
+            <div class="accordion-item__text">
+              <p>Spend a weekend inside the restored fabric of Apice Vecchia, where former houses become small places to stay.</p>
+              <p>The experience allows visitors to live close to the open-air museum, local food spaces and panoramic routes, turning heritage into a slow everyday encounter.</p>
+            </div>
+            <div class="accordion-item__img">
+              <img src="assets/img/discover-albergo.jpg" alt="Cortile in pietra dell'Albergo Diffuso di Apice Vecchia">
+            </div>
+          </div>
+        </button>
       </article>
 
-      <article class="discover-card">
-        <div class="discover-card__text">
-          <p>Stay for a weekend in<strong>Albergo Diffuso</strong></p>
-        </div>
-        <div class="discover-card__img">
-          <img src="assets/img/discover-ruin.jpg" alt="">
-        </div>
+      <article class="accordion-item">
+        <button class="accordion-item__toggle" type="button" aria-expanded="false">
+          <p class="accordion-item__title">Explore the<strong>Landscape Trail</strong></p>
+          <div class="accordion-item__body">
+            <div class="accordion-item__text">
+              <p>Follow the landscape trail connecting Apice Nuova, Apice Vecchia, agricultural fields and natural viewpoints.</p>
+              <p>The route reveals the rural character of the territory and turns the space between the two towns into an active part of the visit.</p>
+            </div>
+            <div class="accordion-item__img">
+              <img src="assets/img/discover-landscape.jpg" alt="Sentiero panoramico tra Apice Nuova e Apice Vecchia">
+            </div>
+          </div>
+        </button>
       </article>
 
     </div>
-    <div class="discover-dots"></div>
   </main>
 
   <script src="assets/js/main.js"></script>

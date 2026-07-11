@@ -1,36 +1,19 @@
-// Discover carousel: highlight the card nearest the center as active
-function initDiscoverCarousel() {
-  const track = document.querySelector('.discover-track');
-  if (!track) return;
-  const cards = Array.from(track.querySelectorAll('.discover-card'));
-  const dotsWrap = document.querySelector('.discover-dots');
+// Discover accordion: one panel open at a time, click to expand
+function initDiscoverAccordion() {
+  const items = Array.from(document.querySelectorAll('.accordion-item'));
+  if (!items.length) return;
 
-  cards.forEach((card, i) => {
-    const dot = document.createElement('button');
-    if (i === 0) dot.classList.add('is-active');
-    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-    dot.addEventListener('click', () => {
-      card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    });
-    dotsWrap.appendChild(dot);
-  });
-  const dots = Array.from(dotsWrap.children);
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const idx = cards.indexOf(entry.target);
-        if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
-          cards.forEach((c) => c.classList.remove('is-active'));
-          dots.forEach((d) => d.classList.remove('is-active'));
-          entry.target.classList.add('is-active');
-          if (dots[idx]) dots[idx].classList.add('is-active');
-        }
+  items.forEach((item) => {
+    const toggle = item.querySelector('.accordion-item__toggle');
+    toggle.addEventListener('click', () => {
+      if (item.classList.contains('is-open')) return;
+      items.forEach((other) => {
+        const isTarget = other === item;
+        other.classList.toggle('is-open', isTarget);
+        other.querySelector('.accordion-item__toggle').setAttribute('aria-expanded', String(isTarget));
       });
-    },
-    { root: track, threshold: [0.6] }
-  );
-  cards.forEach((c) => observer.observe(c));
+    });
+  });
 }
 
 // Generic "fake submit" feedback for forms without a backend
@@ -63,7 +46,7 @@ function initMapToggle() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initDiscoverCarousel();
+  initDiscoverAccordion();
   initFakeForms();
   initMapToggle();
 });
