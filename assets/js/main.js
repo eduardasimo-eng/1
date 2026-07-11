@@ -61,6 +61,28 @@ function initFakeForms() {
   });
 }
 
+// Fade-in-and-rise reveal for elements marked [data-reveal], triggered on scroll
+function initScrollReveal() {
+  const targets = document.querySelectorAll('[data-reveal]');
+  if (!targets.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  targets.forEach((el) => observer.observe(el));
+}
+
 // Belong page: pannable, zoomable, clickable Memory Atlas map
 function initAtlasMap() {
   const map = document.getElementById('atlasMap');
@@ -248,4 +270,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initStayCards();
   initFakeForms();
   initAtlasMap();
+  initScrollReveal();
 });

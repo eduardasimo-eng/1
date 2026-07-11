@@ -149,16 +149,57 @@ main {
   max-width: 900px;
 }
 
+.home-intro {
+  flex: 0 0 auto;
+  max-width: var(--container);
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 48px 48px;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.home-intro.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-intro__title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--white);
+  max-width: 640px;
+}
+
+.home-intro__text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 640px;
+  margin: 14px 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 body.page-home {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
 }
 
 .hero {
   position: relative;
   flex: 1 1 auto;
-  min-height: 0;
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -228,8 +269,12 @@ body.page-home {
   .home-header { padding-top: 96px; }
   .home-header__author { top: 40px; right: 48px; left: 48px; text-align: right; }
   .home-header p, .home-header h1 { font-size: 2rem; }
+  .home-intro { padding: 0 48px 40px; }
+  .home-intro__title { font-size: 1.35rem; }
+  .home-intro__text { font-size: 0.98rem; max-width: none; }
   .hero {
     flex: none;
+    height: auto;
     max-width: var(--container);
     margin: 0 auto 48px;
     padding: 0 48px;
@@ -241,7 +286,7 @@ body.page-home {
 }
 
 @media (max-width: 560px) {
-  .wrap, .topbar, .home-header, .hero, .discover-track,
+  .wrap, .topbar, .home-header, .home-intro, .hero, .discover-track,
   .timeline, .make-grid, .stay-grid, .belong-wrap {
     padding-left: 24px;
     padding-right: 24px;
