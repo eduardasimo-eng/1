@@ -61,26 +61,27 @@ function initFakeForms() {
   });
 }
 
-// Fade-in-and-rise reveal for elements marked [data-reveal], triggered on scroll
-function initScrollReveal() {
-  const targets = document.querySelectorAll('[data-reveal]');
-  if (!targets.length) return;
+// Home hero: swap the title for the "participation scenarios" intro on scroll.
+// The home page is pinned to exactly one viewport (no page scroll), so a
+// wheel gesture is the scroll signal rather than window.scrollY.
+function initHomeIntroSwap() {
+  const stack = document.querySelector('.home-header__stack');
+  if (!stack) return;
 
-  if (!('IntersectionObserver' in window)) {
-    targets.forEach((el) => el.classList.add('is-visible'));
-    return;
+  const desktop = window.matchMedia('(min-width: 901px)');
+  let swapped = false;
+
+  function setSwapped(next) {
+    if (next === swapped) return;
+    swapped = next;
+    stack.classList.toggle('is-swapped', swapped);
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  targets.forEach((el) => observer.observe(el));
+  window.addEventListener('wheel', (e) => {
+    if (!desktop.matches) return;
+    if (e.deltaY > 4) setSwapped(true);
+    else if (e.deltaY < -4) setSwapped(false);
+  }, { passive: true });
 }
 
 // Belong page: pannable, zoomable, clickable Memory Atlas map
@@ -270,5 +271,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initStayCards();
   initFakeForms();
   initAtlasMap();
-  initScrollReveal();
+  initHomeIntroSwap();
 });

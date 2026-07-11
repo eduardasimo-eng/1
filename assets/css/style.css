@@ -134,12 +134,16 @@ main {
   color: var(--white);
 }
 
+.home-header__stack {
+  position: relative;
+}
+
 .home-header h1 {
   font-size: 3.2rem;
   line-height: 1.1;
 }
 
-.home-header p {
+.home-header__title p {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 2.6rem;
@@ -149,43 +153,52 @@ main {
   max-width: 900px;
 }
 
-.home-intro {
-  flex: 0 0 auto;
-  max-width: var(--container);
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 48px 48px;
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+.home-header__title {
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.home-intro.is-visible {
+.home-intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.home-header__stack.is-swapped .home-header__title {
+  opacity: 0;
+  transform: translateY(-14px);
+  pointer-events: none;
+}
+
+.home-header__stack.is-swapped .home-intro {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .home-intro__title {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 600;
+  line-height: 1.2;
   color: var(--white);
-  max-width: 640px;
 }
 
 .home-intro__text {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.4;
   color: rgba(255, 255, 255, 0.85);
-  max-width: 640px;
-  margin: 14px 0 0;
+  margin: 8px 0 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .home-header__title,
   .home-intro {
-    opacity: 1;
-    transform: none;
     transition: none;
   }
 }
@@ -193,13 +206,13 @@ main {
 body.page-home {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  height: 100%;
 }
 
 .hero {
   position: relative;
   flex: 1 1 auto;
-  height: 100vh;
+  min-height: 0;
   margin: 0;
   padding: 0;
 }
@@ -268,13 +281,20 @@ body.page-home {
   body.page-home { display: block; }
   .home-header { padding-top: 96px; }
   .home-header__author { top: 40px; right: 48px; left: 48px; text-align: right; }
-  .home-header p, .home-header h1 { font-size: 2rem; }
-  .home-intro { padding: 0 48px 40px; }
+  .home-header__title p, .home-header h1 { font-size: 2rem; }
+  .home-header__stack { display: block; }
+  .home-header__title { opacity: 1 !important; transform: none !important; }
+  .home-intro {
+    position: static;
+    margin-top: 24px;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto;
+  }
   .home-intro__title { font-size: 1.35rem; }
   .home-intro__text { font-size: 0.98rem; max-width: none; }
   .hero {
     flex: none;
-    height: auto;
     max-width: var(--container);
     margin: 0 auto 48px;
     padding: 0 48px;
@@ -286,7 +306,7 @@ body.page-home {
 }
 
 @media (max-width: 560px) {
-  .wrap, .topbar, .home-header, .home-intro, .hero, .discover-track,
+  .wrap, .topbar, .home-header, .hero, .discover-track,
   .timeline, .make-grid, .stay-grid, .belong-wrap {
     padding-left: 24px;
     padding-right: 24px;
