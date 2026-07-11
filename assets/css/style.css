@@ -291,7 +291,7 @@ body.page-home {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 210px);
+  height: calc(100vh - 330px);
 }
 
 .accordion {
