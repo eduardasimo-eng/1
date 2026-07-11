@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Belong — Città Continua</title>
-<link rel="stylesheet" href="assets/css/style.css?v=3">
+<link rel="stylesheet" href="assets/css/style.css?v=4">
 </head>
 <body>
 
@@ -34,32 +34,18 @@
         <div class="belong-text">
           <p>The Apice Memory Atlas collects stories of the former residents of Apice Vecchia, linking each memory to the house, street or courtyard it belongs to.</p>
           <p>These personal fragments become part of an interactive map, where visitors and locals can explore the historic town house by house and read the stories connected to each place.</p>
+          <p class="belong-text__cta">Click on the map and share your story</p>
         </div>
 
-        <div class="belong-share">
-          <form class="belong-share-form" data-fake-submit>
-            <div class="share-input">
-              <input type="text" name="story" placeholder="Share your story…" required>
-              <button type="submit" aria-label="Invia il ricordo">+</button>
+        <div class="atlas-map" id="atlasMap">
+          <div class="atlas-map__viewport" id="atlasViewport">
+            <div class="atlas-map__layer" id="atlasLayer">
+              <img src="assets/img/belong-map.jpg" class="atlas-map__img" alt="Mappa stilizzata di Apice Vecchia e del territorio circostante">
             </div>
-            <div class="form-note" aria-live="polite"></div>
-          </form>
-
-          <div class="map-link">
-            <p>See memories of locals on the map</p>
-            <button class="map-toggle" type="button" aria-expanded="false" aria-controls="memory-map">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-            </button>
           </div>
-        </div>
-
-        <div class="map-panel" id="memory-map">
-          <div class="map-panel__inner">
-            <div class="map-pin" style="top: 30%; left: 18%;" data-label="Casa dei Ferri"></div>
-            <div class="map-pin" style="top: 55%; left: 38%;" data-label="Cortile Grande"></div>
-            <div class="map-pin" style="top: 25%; left: 55%;" data-label="Vicolo del Forno"></div>
-            <div class="map-pin" style="top: 65%; left: 72%;" data-label="Piazza Vecchia"></div>
-            <div class="map-pin" style="top: 40%; left: 85%;" data-label="Chiesa Madre"></div>
+          <div class="atlas-zoom">
+            <button type="button" class="atlas-zoom__btn" data-zoom="in" aria-label="Zoom in">+</button>
+            <button type="button" class="atlas-zoom__btn" data-zoom="out" aria-label="Zoom out">−</button>
           </div>
         </div>
       </div>
@@ -67,6 +53,6 @@
     </div>
   </main>
 
-  <script src="assets/js/main.js?v=3"></script>
+  <script src="assets/js/main.js?v=4"></script>
 </body>
 </html>

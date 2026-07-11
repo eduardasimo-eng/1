@@ -61,15 +61,100 @@ function initFakeForms() {
   });
 }
 
-// Belong page: reveal the illustrative map panel
-function initMapToggle() {
-  const toggle = document.querySelector('.map-toggle');
-  const panel = document.querySelector('.map-panel');
-  if (!toggle || !panel) return;
-  toggle.addEventListener('click', () => {
-    const isOpen = panel.classList.toggle('is-open');
-    toggle.classList.toggle('is-open', isOpen);
-    if (isOpen) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+// Belong page: zoomable, clickable Memory Atlas map
+function initAtlasMap() {
+  const map = document.getElementById('atlasMap');
+  const viewport = document.getElementById('atlasViewport');
+  const layer = document.getElementById('atlasLayer');
+  if (!map || !viewport || !layer) return;
+
+  const MIN_SCALE = 1;
+  const MAX_SCALE = 2.5;
+  const STEP = 0.3;
+  let scale = 1;
+  let activePopup = null;
+
+  function closePopup() {
+    if (activePopup) {
+      activePopup.remove();
+      activePopup = null;
+    }
+  }
+
+  function openPopup(mapX, mapY) {
+    closePopup();
+    const mapRect = map.getBoundingClientRect();
+    const popup = document.createElement('div');
+    popup.className = 'atlas-popup';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Share your story…';
+    input.maxLength = 140;
+
+    const photoBtn = document.createElement('button');
+    photoBtn.type = 'button';
+    photoBtn.className = 'atlas-popup__photo';
+    photoBtn.setAttribute('aria-label', 'Attach a photo');
+    photoBtn.textContent = '+';
+
+    const row = document.createElement('div');
+    row.className = 'atlas-popup__row';
+    row.appendChild(input);
+    row.appendChild(photoBtn);
+    popup.appendChild(row);
+
+    const popupWidth = 240;
+    const left = Math.min(Math.max(mapX, 12), mapRect.width - popupWidth - 12);
+    const top = Math.min(Math.max(mapY - 60, 12), mapRect.height - 100);
+    popup.style.left = `${left}px`;
+    popup.style.top = `${top}px`;
+
+    popup.addEventListener('click', (e) => e.stopPropagation());
+    photoBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      photoBtn.classList.toggle('is-active');
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') closePopup();
+    });
+
+    map.appendChild(popup);
+    activePopup = popup;
+    input.focus();
+  }
+
+  map.querySelectorAll('.atlas-zoom__btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      closePopup();
+      scale = btn.dataset.zoom === 'in'
+        ? Math.min(MAX_SCALE, +(scale + STEP).toFixed(2))
+        : Math.max(MIN_SCALE, +(scale - STEP).toFixed(2));
+      layer.style.transform = `scale(${scale})`;
+    });
+  });
+
+  viewport.addEventListener('click', (e) => {
+    const layerRect = layer.getBoundingClientRect();
+    const mapRect = map.getBoundingClientRect();
+    const xPercent = ((e.clientX - layerRect.left) / layerRect.width) * 100;
+    const yPercent = ((e.clientY - layerRect.top) / layerRect.height) * 100;
+    if (xPercent < 0 || xPercent > 100 || yPercent < 0 || yPercent > 100) return;
+
+    const pin = document.createElement('span');
+    pin.className = 'atlas-pin';
+    pin.style.left = `${xPercent}%`;
+    pin.style.top = `${yPercent}%`;
+    layer.appendChild(pin);
+
+    openPopup(e.clientX - mapRect.left, e.clientY - mapRect.top);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (activePopup && !map.contains(e.target)) closePopup();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePopup();
   });
 }
 
@@ -78,5 +163,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initLearnTimeline();
   initStayCards();
   initFakeForms();
-  initMapToggle();
+  initAtlasMap();
 });
