@@ -541,6 +541,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding-top: 20px;
 }
 
 .make-card__img img {
