@@ -19,6 +19,7 @@
 }
 
 html {
+  height: 100%;
   scroll-behavior: smooth;
 }
 
@@ -71,11 +72,11 @@ a {
   gap: 14px;
   border: 2px solid rgba(255, 255, 255, 0.85);
   border-radius: var(--radius-pill);
-  padding: 12px 28px 12px 14px;
+  padding: 8px 34px 8px 10px;
   color: var(--white);
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
@@ -84,8 +85,8 @@ a {
 }
 
 .back-pill .icon {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.85);
   display: flex;
@@ -114,9 +115,11 @@ main {
 /* ---------- Home page ---------- */
 
 .home-header {
+  flex: 0 0 auto;
   padding: 56px 48px 40px;
   max-width: var(--container);
   margin: 0 auto;
+  width: 100%;
   position: relative;
 }
 
@@ -145,23 +148,32 @@ main {
   max-width: 900px;
 }
 
+body.page-home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .hero {
   position: relative;
-  max-width: var(--container);
-  margin: 0 auto 48px;
-  padding: 0 48px;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .hero__frame {
   position: relative;
-  border-radius: var(--radius-lg);
+  height: 100%;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   overflow: hidden;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
 .hero__img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   transform-origin: center;
 }
@@ -183,20 +195,20 @@ main {
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
-  gap: 18px;
+  justify-content: space-evenly;
+  gap: 24px;
   flex-wrap: wrap;
-  padding: 0 40px;
+  padding: 0 72px;
 }
 
 .pill {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   color: var(--white);
-  border: 2.5px solid var(--white);
+  border: 2px solid var(--white);
   border-radius: var(--radius-pill);
-  padding: 16px 38px;
+  padding: 9px 42px;
   background: rgba(255, 255, 255, 0.18);
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
@@ -208,12 +220,20 @@ main {
 }
 
 @media (max-width: 900px) {
+  body.page-home { display: block; }
   .home-header { padding-top: 96px; }
   .home-header__author { top: 40px; right: 48px; left: 48px; text-align: right; }
   .home-header p, .home-header h1 { font-size: 2rem; }
-  .hero__nav { position: static; margin-top: 20px; background: transparent; }
-  .pill { font-size: 1rem; padding: 12px 22px; }
-  .hero__frame { border-radius: var(--radius-md); }
+  .hero {
+    flex: none;
+    max-width: var(--container);
+    margin: 0 auto 48px;
+    padding: 0 48px;
+  }
+  .hero__frame { height: auto; border-radius: var(--radius-md); }
+  .hero__img { height: auto; }
+  .hero__nav { position: static; justify-content: center; gap: 14px; margin-top: 20px; padding: 0; background: transparent; }
+  .pill { font-size: 1rem; padding: 10px 22px; }
 }
 
 @media (max-width: 560px) {
