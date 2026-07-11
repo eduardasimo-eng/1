@@ -16,6 +16,23 @@ function initDiscoverAccordion() {
   });
 }
 
+// Learn timeline: clicking a bar scrolls to and pulses its programme card
+function initLearnTimeline() {
+  const bars = document.querySelectorAll('.timeline__bar[data-target]');
+  bars.forEach((bar) => {
+    bar.addEventListener('click', () => {
+      const card = document.getElementById(bar.dataset.target);
+      if (!card) return;
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.remove('is-pulsing');
+      // eslint-disable-next-line no-unused-expressions
+      card.offsetWidth; // restart animation
+      card.classList.add('is-pulsing');
+      setTimeout(() => card.classList.remove('is-pulsing'), 900);
+    });
+  });
+}
+
 // Generic "fake submit" feedback for forms without a backend
 function initFakeForms() {
   document.querySelectorAll('[data-fake-submit]').forEach((form) => {
@@ -47,6 +64,7 @@ function initMapToggle() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initDiscoverAccordion();
+  initLearnTimeline();
   initFakeForms();
   initMapToggle();
 });
