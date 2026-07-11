@@ -33,6 +33,17 @@ function initLearnTimeline() {
   });
 }
 
+// Stay cards: click a photo to reveal details, dimming the image
+function initStayCards() {
+  const toggles = document.querySelectorAll('.stay-card__img');
+  toggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+}
+
 // Generic "fake submit" feedback for forms without a backend
 function initFakeForms() {
   document.querySelectorAll('[data-fake-submit]').forEach((form) => {
@@ -65,6 +76,7 @@ function initMapToggle() {
 document.addEventListener('DOMContentLoaded', () => {
   initDiscoverAccordion();
   initLearnTimeline();
+  initStayCards();
   initFakeForms();
   initMapToggle();
 });

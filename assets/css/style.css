@@ -690,8 +690,8 @@ main {
 }
 
 .stay-card .card__body {
-  padding: 30px 28px 22px;
-  min-height: 140px;
+  padding: 20px 28px 22px;
+  height: 150px;
 }
 
 .stay-card__title {
@@ -710,15 +710,56 @@ main {
 }
 
 .stay-card__img {
+  all: unset;
+  position: relative;
+  display: block;
   flex: 1;
+  min-height: 260px;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .stay-card__img img {
   width: 100%;
   height: 100%;
-  min-height: 260px;
   object-fit: cover;
-  filter: grayscale(1) sepia(0.15);
+  transition: filter 0.3s ease;
+}
+
+.stay-card__img:hover img {
+  filter: brightness(0.9);
+}
+
+.stay-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 32, 20, 0.78);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 30px 26px;
+}
+
+.stay-card__img[aria-expanded="true"] .stay-card__overlay {
+  opacity: 1;
+}
+
+.stay-card__img[aria-expanded="true"] img {
+  filter: brightness(0.55);
+}
+
+.stay-card__overlay ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--white);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.stay-card__overlay li + li {
+  margin-top: 10px;
 }
 
 @media (max-width: 980px) {

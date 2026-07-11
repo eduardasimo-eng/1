@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stay — Città Continua</title>
-<link rel="stylesheet" href="assets/css/style.css?v=2">
+<link rel="stylesheet" href="assets/css/style.css?v=3">
 </head>
 <body>
 
@@ -25,32 +25,56 @@
         <div class="card__body">
           <p class="stay-card__title">Spend a semester in<strong>Student Residence</strong></p>
         </div>
-        <div class="stay-card__img">
+        <button class="stay-card__img" type="button" aria-expanded="false" aria-label="Show details for Student Residence">
           <img src="assets/img/stay-student.jpg" alt="Interno luminoso di una residenza per studenti con spazi comuni">
-        </div>
+          <div class="stay-card__overlay">
+            <ul>
+              <li>For students, researchers and workshop participants</li>
+              <li>Semester-based stay close to learning and restoration programs</li>
+              <li>Shared rooms, study areas, kitchen and common spaces</li>
+              <li>Lectures, field trips, community dinners and local events</li>
+            </ul>
+          </div>
+        </button>
       </article>
 
       <article class="card stay-card">
         <div class="card__body">
           <p class="stay-card__title">Become a resident of<strong>Digital rural hub</strong></p>
         </div>
-        <div class="stay-card__img">
+        <button class="stay-card__img" type="button" aria-expanded="false" aria-label="Show details for Digital rural hub">
           <img src="assets/img/stay-digital.jpg" alt="Spazio di coworking rurale con illuminazione moderna">
-        </div>
+          <div class="stay-card__overlay">
+            <ul>
+              <li>For remote workers, freelancers and young entrepreneurs</li>
+              <li>Temporary residence with access to work and meeting spaces</li>
+              <li>Fast internet, coworking rooms, shared kitchen and local services</li>
+              <li>Networking, public talks, project sessions and weekend activities</li>
+            </ul>
+          </div>
+        </button>
       </article>
 
       <article class="card stay-card">
         <div class="card__body">
-          <p class="stay-card__title">Become a part of the community of<strong>Assisted Living Cluster</strong></p>
+          <p class="stay-card__title">Join the community of<strong>Assisted Living Cluster</strong></p>
         </div>
-        <div class="stay-card__img">
+        <button class="stay-card__img" type="button" aria-expanded="false" aria-label="Show details for Assisted Living Cluster">
           <img src="assets/img/stay-assisted.jpg" alt="Cucina condivisa di un cluster di residenza assistita">
-        </div>
+          <div class="stay-card__overlay">
+            <ul>
+              <li>For elderly residents and people seeking supported everyday life</li>
+              <li>Independent living with access to care and shared facilities</li>
+              <li>Accessible rooms, common kitchen, assistance and mobility support</li>
+              <li>Social meals, local walks, workshops and intergenerational events</li>
+            </ul>
+          </div>
+        </button>
       </article>
 
     </div>
   </main>
 
-  <script src="assets/js/main.js?v=2"></script>
+  <script src="assets/js/main.js?v=3"></script>
 </body>
 </html>
