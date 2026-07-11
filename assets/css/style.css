@@ -473,6 +473,16 @@ body.page-home {
   background-size: calc(100% + 1.5px) 100%;
 }
 
+.timeline__grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1.5px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
 .timeline__bar {
   align-self: center;
   height: 58px;
@@ -520,11 +530,11 @@ body.page-home {
 }
 
 .timeline__months span:first-child {
-  left: 0%;
+  left: calc(100% / 24);
 }
 
 .timeline__months span:last-child {
-  left: calc(100% / 12 * 11);
+  left: calc(100% - 100% / 24);
 }
 
 .timeline__months span:not(:first-child):not(:last-child) {
