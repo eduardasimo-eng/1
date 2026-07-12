@@ -53,6 +53,52 @@ a {
   padding: 0 48px;
 }
 
+/* ---------- Sticky section nav (sub pages) ---------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  padding: 16px 48px;
+  background: rgba(114, 143, 96, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.site-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.site-nav__link {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.78);
+  padding: 9px 22px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.site-nav__link:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.site-nav__link.is-active {
+  color: var(--green-deep);
+  background: var(--white);
+}
+
+@media (max-width: 560px) {
+  .site-nav { padding: 14px 20px; }
+  .site-nav__link { font-size: 0.82rem; padding: 8px 16px; }
+}
+
 /* ---------- Top bar (sub pages) ---------- */
 
 .topbar {
@@ -330,17 +376,24 @@ body.page-home {
 
 .card__title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 1.4rem;
-  line-height: 1.35;
+  font-weight: 600;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #7a7a7a;
 }
 
 .card__title strong {
   display: block;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 1.5rem;
-  margin-top: 2px;
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  margin-top: 6px;
 }
 
 .card__text {
@@ -356,7 +409,7 @@ body.page-home {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - 330px);
+  height: calc(100vh - 396px);
 }
 
 .accordion {
@@ -406,16 +459,18 @@ body.page-home {
   flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
-  padding: 32px 28px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
 }
 
 .accordion-item__title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 1.4rem;
-  line-height: 1.35;
+  font-weight: 600;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--green-deep);
   margin: 0;
   flex-shrink: 0;
@@ -423,9 +478,12 @@ body.page-home {
 
 .accordion-item__title strong {
   display: block;
-  font-weight: 600;
-  font-size: 1.5rem;
-  margin-top: 2px;
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 6px;
   color: var(--green-deep);
 }
 
@@ -512,7 +570,7 @@ body.page-home {
   flex-direction: column;
   justify-content: center;
   gap: 64px;
-  min-height: calc(100vh - 190px);
+  min-height: calc(100vh - 256px);
 }
 
 .timeline {
@@ -628,7 +686,9 @@ body.page-home {
   display: inline-block;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--green-deep);
   background: var(--green-light);
   border-radius: var(--radius-pill);
@@ -638,8 +698,9 @@ body.page-home {
 
 .learn-card__title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 1.4rem;
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.15;
   color: var(--ink);
   margin: 0;
 }
@@ -834,23 +895,30 @@ body.page-home {
 }
 
 .stay-card .card__body {
-  padding: 20px 28px 22px;
+  padding: 20px 32px 22px;
   height: 150px;
 }
 
 .stay-card__title {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.35;
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #7a7a7a;
 }
 
 .stay-card__title strong {
   display: block;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 1.4rem;
-  margin-top: 4px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  margin-top: 6px;
 }
 
 .stay-card__img {
@@ -897,11 +965,27 @@ body.page-home {
 
 .stay-card__overlay ul {
   margin: 0;
-  padding-left: 18px;
+  padding: 0;
+  list-style: none;
   color: var(--white);
   font-size: 0.9rem;
   line-height: 1.55;
   text-align: left;
+}
+
+.stay-card__overlay li {
+  display: flex;
+  gap: 12px;
+}
+
+.stay-card__overlay li::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 5px;
+  height: 5px;
+  margin-top: 0.6em;
+  border-radius: 50%;
+  background: var(--green-light);
 }
 
 .stay-card__overlay li + li {
